@@ -44,16 +44,16 @@ install_web3j() {
   fi
 }
 get_user_input() {
-  while echo "Would you like to update Web3j ? [y]es | [n]o : " && read -r user_input </dev/tty ; do
+  while echo "Would you like to update Web3j [Y/n]" && read -r user_input </dev/tty ; do
     case $user_input in
-    y)
-      echo "Updating Web3j ..."
-      break
-      ;;
     n)
       echo "Aborting instalation ..."
       exit 0
       ;;
+    *)
+       echo "Updating Web3j ..."
+       break
+       ;;
     esac
   done
 }
