@@ -36,7 +36,7 @@ install_web3j() {
     curl -# -L -o "$HOME/.web3j/web3j-${web3j_version}.tar" "https://github.com/web3j/web3j-cli/releases/download/v${web3j_version}/web3j-${web3j_version}.tar"
     echo "Installing Web3j..."
     tar -xf "$HOME/.web3j/web3j-${web3j_version}.tar" -C "$HOME/.web3j"
-    echo "export PATH=\$PATH:$HOME/.web3j/web3j-${web3j_version}/bin" >"$HOME/.web3j/source.sh"
+    echo "export PATH=\$PATH:$HOME/.web3j" >"$HOME/.web3j/source.sh"
     chmod +x "$HOME/.web3j/source.sh"
     echo "Removing downloaded archive..."
     rm "$HOME/.web3j/web3j-${web3j_version}.tar"
@@ -61,7 +61,7 @@ get_user_input() {
 }
 
 check_version() {
-  installed_version=$(web3j version | grep Version | awk -F" " '{print $NF}')  
+  installed_version=$(web3j version | grep Version | awk -F" " '{print $NF}')
   if [ "$installed_version" = "$web3j_version" ]; then
       echo "You have the latest version of Web3j (${installed_version}). Exiting."
       exit 0
@@ -142,6 +142,7 @@ clean_up() {
 }
 
 completed() {
+  ln -sf "$HOME/.web3j/web3j-$web3j_version/bin/web3j" $HOME/.web3j/web3j
   printf '\n'
   printf "$GREEN" 
   echo "Web3j was succesfully installed."
